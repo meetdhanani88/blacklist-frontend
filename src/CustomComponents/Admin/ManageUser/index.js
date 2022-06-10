@@ -22,7 +22,6 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Grid } from "@mui/material";
-import { Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -47,7 +46,7 @@ import Toast from "Helper/Toast";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#2986CE",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -80,15 +79,13 @@ function TablePaginationActions(props) {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
-        aria-label="first page"
-      >
+        aria-label="first page">
         {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
       <IconButton
         onClick={handleBackButtonClick}
         disabled={page === 0}
-        aria-label="previous page"
-      >
+        aria-label="previous page">
         {theme.direction === "rtl" ? (
           <KeyboardArrowRight />
         ) : (
@@ -98,8 +95,7 @@ function TablePaginationActions(props) {
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
+        aria-label="next page">
         {theme.direction === "rtl" ? (
           <KeyboardArrowLeft />
         ) : (
@@ -109,8 +105,7 @@ function TablePaginationActions(props) {
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
+        aria-label="last page">
         {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
@@ -216,23 +211,20 @@ function CustomPaginationActionsTable() {
         <Adduser
           openpop={openpop}
           handleClosepop={handleClosepop}
-          Listofuser={query}
-        ></Adduser>
+          Listofuser={query}></Adduser>
       )}
       {openEdituserpop && (
         <Edituser
           openEdituserpop={openEdituserpop}
           handleCloseEdituserpop={handleCloseEdituserpop}
-          listofuser={query}
-        ></Edituser>
+          listofuser={query}></Edituser>
       )}
 
       {openEditsubuserpop && (
         <EditSubscription
           openEdituserpop={openEditsubuserpop}
           handleCloseEdituserpop={() => setopenEditsubuserpop(false)}
-          listofuser={query}
-        ></EditSubscription>
+          listofuser={query}></EditSubscription>
       )}
 
       <Grid container spacing={gridSpacing}>
@@ -241,15 +233,13 @@ function CustomPaginationActionsTable() {
           item
           xs={12}
           justifyContent={"space-between"}
-          alignContent={"center"}
-        >
+          alignContent={"center"}>
           <h1>Users</h1>
           <Fab
             color="primary"
             aria-label="add"
             variant="extended"
-            onClick={handleClickOpenpop}
-          >
+            onClick={handleClickOpenpop}>
             <AddIcon sx={{ mr: 1 }} />
             Add User
           </Fab>
@@ -285,10 +275,18 @@ function CustomPaginationActionsTable() {
 
                     return (
                       <TableRow key={row?._id}>
-                        <TableCell style={{ width: 50 }}>
+                        <TableCell
+                          style={{ width: 50 }}
+                          sx={{ "&.MuiTableCell-root": { fontWeight: 700 } }}>
                           {row.firstName}
                         </TableCell>
-                        <TableCell style={{ width: 50 }}>
+                        <TableCell
+                          style={{ width: 50 }}
+                          sx={{
+                            "&.MuiTableCell-root": {
+                              fontWeight: 700,
+                            },
+                          }}>
                           {row.lastName}
                         </TableCell>
                         <TableCell style={{ width: 100 }}>
@@ -311,8 +309,7 @@ function CustomPaginationActionsTable() {
                             aria-haspopup="true"
                             aria-expanded={open ? "true" : undefined}
                             onClick={handleClick}
-                            style={{ boxShadow: "none" }}
-                          >
+                            style={{ boxShadow: "none" }}>
                             <MenuIcon color="error" />
                           </IconButton>
                           {/* <p style={{}} ref={rowid}>{row._id}</p> */}
@@ -329,8 +326,7 @@ function CustomPaginationActionsTable() {
                                 boxShadow:
                                   "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
                               },
-                            }}
-                          >
+                            }}>
                             <MenuItem onClick={() => Edituserfun(anchorEl)}>
                               <ListItemIcon>
                                 <ModeEdit fontSize="small" color="info" />

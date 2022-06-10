@@ -23,7 +23,6 @@ import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Grid } from "@mui/material";
-import { Typography } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
@@ -44,12 +43,12 @@ import {
   SETBLACKLISTEDVENDORLIST,
   SETBLACKLISTEDVENDOREDITID,
 } from "store/actions";
-import MainCard from "ui-component/cards/MainCard";
+
 import { gridSpacing } from "store/constant";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#2986CE",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -344,7 +343,14 @@ function ManageBlacklistVendor() {
 
                     return (
                       <TableRow key={i}>
-                        <TableCell style={{ width: 50 }}>
+                        <TableCell
+                          style={{ width: 50 }}
+                          sx={{
+                            "&.MuiTableCell-root": {
+                              fontWeight: 700,
+                            },
+                          }}
+                        >
                           {row.vendorName}
                         </TableCell>
                         <TableCell style={{ width: 100 }}>

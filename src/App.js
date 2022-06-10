@@ -21,6 +21,11 @@ import SamplePage from "views/sample-page";
 import CustomPaginationActionsTable from "CustomComponents/Admin/ManageUser";
 import ManageBlacklistVendor from "CustomComponents/Admin/ManageBlacklistVendor";
 import ManageBlacklistReq from "CustomComponents/Admin/ManageBlacklistReq";
+import UserHomePage from "./CustomComponents/User/UserHomepage/Index";
+import BlacklistedDetails from "CustomComponents/User/UserHomepage/BlacklistedDetails/BlacklistedDetails";
+import Forgotpass from "CustomComponents/Forgotpass";
+import Reset from "CustomComponents/Forgotpass/Reset";
+import Resetpass from "CustomComponents/ResetPass";
 // ==============================|| APP ||============================== //
 let currentpatharr = [];
 const queryClient = new QueryClient();
@@ -61,9 +66,18 @@ const App = () => {
                 }
               />
 
-              <Route path="/forgotpass" element={<div></div>}></Route>
-              <Route path="/forgotpassword/:code" element={<div></div>}></Route>
-              <Route path="/resetpass" element={<div></div>}></Route>
+              <Route
+                path="/forgotpass"
+                element={<Forgotpass></Forgotpass>}
+              ></Route>
+              <Route
+                path="/forgotpassword/:code"
+                element={<Reset></Reset>}
+              ></Route>
+              <Route
+                path="/resetpass"
+                element={<Resetpass></Resetpass>}
+              ></Route>
 
               {Role === 1 && (
                 <Route path="/admin" element={<MainLayout></MainLayout>}>
@@ -84,13 +98,18 @@ const App = () => {
                 </Route>
               )}
 
-              {Role === 2 && <Route path="/user" element={<div></div>}></Route>}
+              {Role === 2 && (
+                <Route
+                  path="/user"
+                  element={<UserHomePage></UserHomePage>}
+                ></Route>
+              )}
 
               <Route
                 path="/blacklist/:code"
                 element={
                   userlist?.length >= 1 ? (
-                    <div />
+                    <BlacklistedDetails />
                   ) : (
                     <Navigate to={"/login"}></Navigate>
                   )

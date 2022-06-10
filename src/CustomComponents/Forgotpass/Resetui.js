@@ -5,7 +5,6 @@ import { useState } from "react";
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
-
   //Divider,
   FormControl,
   FormHelperText,
@@ -23,18 +22,14 @@ import {
 // third party
 import * as Yup from "yup";
 import { Formik } from "formik";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 // project imports
 
 import AnimateButton from "ui-component/extended/AnimateButton";
 
-// assets
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useQueryClient, useMutation } from "react-query";
 import axiosInstance from "configs";
-import { useDispatch } from "react-redux";
-import { LOGIN } from "store/actions";
+
 import Toast from "Helper/Toast";
 import { LoadingButton } from "@mui/lab";
 
@@ -42,77 +37,40 @@ import { LoadingButton } from "@mui/lab";
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
-const FirebaseLogin = ({ setrole }) => {
+const Resetui = () => {
   const nav = useNavigate();
   const queryClient = useQueryClient();
-  //const dispatch = useDispatch();
+
   const [suceessmsg, setsuceessmsg] = useState(false);
   const [errmsg, seterrmsg] = useState(false);
+  const { code } = useParams();
 
   const [myval, setmyval] = useState("");
-  const dispatch = useDispatch();
 
   const theme = useTheme();
 
-  const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
-  const postlogin = async (values) => {
-    let res = await axiosInstance.post("/user/SignIn", values);
+  const postlogin = async () => {
+    let res = await axiosInstance.post("/user/updatePassword", {
+      password: myval.newpassword,
+      token: code,
+    });
     return res.data;
   };
 
-  const { mutate, isLoading } = useMutation((values) => postlogin(values), {
+  const { mutate, isLoading } = useMutation(postlogin, {
     onSuccess: (data) => {
-      dispatch({ type: LOGIN, payload: data.user });
-      localStorage.setItem("token", data.token);
+      Toast({ message: `${data.message}` });
 
-      setsuceessmsg(data.message);
       seterrmsg("");
-
-      if (data.user._id === 1) {
-        Toast({ message: `${data.message}` || "Success" });
-
-        setrole(1);
-        nav("/admin", { replace: true });
-      }
-
-      if (data.user._id === 2) {
-        setrole(2);
-
-        if (myval.password.slice(0, 5) === "A@p#1") {
-          Toast({ message: "Reset Your Password" });
-          nav("/resetpass", {
-            state: {
-              pass: myval.password,
-              email: myval.email,
-            },
-            replace: true,
-          });
-        } else {
-          Toast({ message: "Login Successfully" });
-          nav("/user", {
-            state: {
-              pass: myval.password,
-              email: myval.email,
-            },
-            replace: true,
-          });
-        }
-      }
+      nav("/login");
     },
+
     onError: (data) => {
-      seterrmsg(data.response.data.message || "Something Wrong");
+      seterrmsg(data.response.data.message || "Something went Wrong");
       setsuceessmsg("");
     },
     onSettled: () => {
-      queryClient.invalidateQueries("user Login");
+      queryClient.invalidateQueries("password reseted");
     },
   });
 
@@ -128,7 +86,7 @@ const FirebaseLogin = ({ setrole }) => {
         >
           <Box sx={{ mb: 2 }}>
             <Typography variant="subtitle1">
-              Sign in with Email address
+              Enter New Password For Reset
             </Typography>
           </Box>
         </Grid>
@@ -145,15 +103,14 @@ const FirebaseLogin = ({ setrole }) => {
       )}
       <Formik
         initialValues={{
-          email: "",
-          password: "",
+          newpassword: "",
+          confirmnewpassword: "",
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email("Must be a valid email")
-            .max(255)
-            .required("Email is required"),
-          password: Yup.string().max(255).required("Password is required"),
+          newpassword: Yup.string().max(255).required("Password is required"),
+          confirmnewpassword: Yup.string()
+            .oneOf([Yup.ref("newpassword"), null], "Passwords must match")
+            .required("Password is required"),
         })}
         onSubmit={async (values) => {
           setmyval(values);
@@ -172,93 +129,92 @@ const FirebaseLogin = ({ setrole }) => {
           <form noValidate onSubmit={handleSubmit}>
             <FormControl
               fullWidth
-              error={Boolean(touched.email && errors.email)}
-              sx={{ ...theme.typography.customInput }}
-            >
-              <InputLabel htmlFor="outlined-adornment-email-login">
-                Email Address / Username
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-email-login"
-                type="email"
-                value={values.email}
-                name="email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                label="Email Address / Username"
-                inputProps={{}}
-              />
-              {touched.email && errors.email && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-email-login"
-                >
-                  {errors.email}
-                </FormHelperText>
-              )}
-            </FormControl>
-
-            <FormControl
-              fullWidth
-              error={Boolean(touched.password && errors.password)}
+              error={Boolean(touched.newpassword && errors.newpassword)}
               sx={{ ...theme.typography.customInput }}
             >
               <InputLabel htmlFor="outlined-adornment-password-login">
-                Password
+                Enter New Password
               </InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password-login"
-                type={showPassword ? "text" : "password"}
-                value={values.password}
-                name="password"
+                type="password"
+                value={values.newpassword}
+                name="newpassword"
                 onBlur={handleBlur}
                 onChange={handleChange}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
                       aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
                       edge="end"
                       size="large"
-                    >
-                      {showPassword ? <Visibility /> : <VisibilityOff />}
-                    </IconButton>
+                    ></IconButton>
                   </InputAdornment>
                 }
                 label="Password"
                 inputProps={{}}
               />
-              {touched.password && errors.password && (
+              {touched.newpassword && errors.newpassword && (
                 <FormHelperText
                   error
                   id="standard-weight-helper-text-password-login"
                 >
-                  {errors.password}
+                  {errors.newpassword}
                 </FormHelperText>
               )}
             </FormControl>
+            <FormControl
+              fullWidth
+              error={Boolean(
+                touched.confirmnewpassword && errors.confirmnewpassword
+              )}
+              sx={{ ...theme.typography.customInput }}
+            >
+              <InputLabel htmlFor="outlined-adornment-password-login">
+                Confirm New Password
+              </InputLabel>
+              <OutlinedInput
+                id="confirmnewpassword"
+                type="password"
+                value={values.confirmnewpassword}
+                name="confirmnewpassword"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      edge="end"
+                      size="large"
+                    ></IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+                inputProps={{}}
+              />
+              {touched.confirmnewpassword && errors.confirmnewpassword && (
+                <FormHelperText
+                  error
+                  id="standard-weight-helper-text-password-login"
+                >
+                  {errors.confirmnewpassword}
+                </FormHelperText>
+              )}
+            </FormControl>
+
             <Stack
               direction="row"
-              alignItems="center"
-              justifyContent="space-between"
+              alignItems="flex-end"
+              justifyContent="end"
               spacing={1}
             >
               <Typography
                 variant="subtitle1"
                 color="secondary"
                 sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => nav("/resetpass")}
+                onClick={() => nav("/Login")}
               >
-                Reset Password?
-              </Typography>
-              <Typography
-                variant="subtitle1"
-                color="secondary"
-                sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => nav("/forgotpass")}
-              >
-                Forgot Password?
+                Login?
               </Typography>
             </Stack>
             {errors.submit && (
@@ -278,7 +234,7 @@ const FirebaseLogin = ({ setrole }) => {
                   color="secondary"
                   loading={isLoading}
                 >
-                  Sign in
+                  Reset Password
                 </LoadingButton>
               </AnimateButton>
             </Box>
@@ -289,4 +245,4 @@ const FirebaseLogin = ({ setrole }) => {
   );
 };
 
-export default FirebaseLogin;
+export default Resetui;

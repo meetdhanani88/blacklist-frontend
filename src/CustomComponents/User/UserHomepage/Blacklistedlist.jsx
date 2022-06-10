@@ -62,21 +62,21 @@ const Blacklistedlist = () => {
             </Typography>
 
             <Grid container direction="row" spacing={4}>
-              {BlacklistedList?.filter((item) => item.category === cat).map(
-                (listitem, key) => (
-                  <Grid
-                    item
-                    xs={12}
-                    sm={6}
-                    md={4}
-                    lg={3}
-                    key={key}
-                    justifyContent="center"
-                  >
-                    <BlacklistedlistItem listitem={listitem} />
-                  </Grid>
-                )
-              )}
+              {BlacklistedList?.filter(
+                (item) => item.category.name === cat
+              ).map((listitem, key) => (
+                <Grid
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  lg={3}
+                  key={key}
+                  justifyContent="center"
+                >
+                  <BlacklistedlistItem listitem={listitem} />
+                </Grid>
+              ))}
             </Grid>
           </Grid>
         ))}

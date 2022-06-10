@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { useSelector } from "react-redux";
 import img from "../../../Images/undraw_online_stats_0g94.png";
-import { imgurl } from "../../../../config";
+import { imgurl } from "../../../../configs";
 
 const BlacklistedDetails = () => {
   const [vendor, setVendor] = useState("");

@@ -146,8 +146,7 @@ const EditSubscription = ({
         scroll="paper"
         fullWidth
         aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
-      >
+        aria-describedby="scroll-dialog-description">
         <Box component="form" noValidate onSubmit={handleSubmit}>
           <DialogTitle id="scroll-dialog-title" fontSize={"1rem"}>
             Edit Subscription
@@ -166,8 +165,7 @@ const EditSubscription = ({
                     aria-labelledby="demo-row-radio-buttons-group-label"
                     name="row-radio-buttons-group"
                     value={radioval}
-                    onChange={Radiochange}
-                  >
+                    onChange={Radiochange}>
                     <FormControlLabel
                       value="extendExpiry"
                       control={<Radio />}
@@ -228,8 +226,7 @@ const EditSubscription = ({
             ) : (
               <LoadingButton
                 onClick={inactiveSubmit}
-                loading={inactivesubmutation.isLoading}
-              >
+                loading={inactivesubmutation.isLoading}>
                 Inactive User
               </LoadingButton>
             )}

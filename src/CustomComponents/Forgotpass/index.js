@@ -1,190 +1,69 @@
-import React, { useState } from "react";
-import Avatar from "@mui/material/Avatar";
-import CssBaseline from "@mui/material/CssBaseline";
-import TextField from "@mui/material/TextField";
-import { Link as RouterLink } from "react-router-dom";
-import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Container from "@mui/material/Container";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { useFormik } from "formik";
-import LoadingButton from "@mui/lab/LoadingButton";
-import Alert from "@mui/material/Alert";
-import * as Yup from "yup";
-import { useQueryClient, useMutation } from "react-query";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import axiosInstance from "../../config";
+import { Link } from "react-router-dom";
 
-import ForwardToInboxOutlinedIcon from "@mui/icons-material/ForwardToInboxOutlined";
+// material-ui
 
-const theme = createTheme();
+import { Divider, Grid } from "@mui/material";
 
-function Forgotpass() {
-  const queryClient = useQueryClient();
+// project imports
 
-  const [suceessmsg, setsuceessmsg] = useState(false);
-  const [errmsg, seterrmsg] = useState(false);
+import Logo from "ui-component/Logo";
 
-  const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid Email").required("email is required"),
-  });
+import AuthCardWrapper from "views/pages/authentication/AuthCardWrapper";
+import AuthWrapper1 from "views/pages/authentication/AuthWrapper1";
 
-  const postEmail = async () => {
-    let res = await axiosInstance.post("/user/forgotPassword", {
-      email: values.email,
-    });
-    return res.data;
-  };
+import Forgotui from "./Forgotui";
 
-  const mutation = useMutation(postEmail, {
-    onSuccess: (data) => {
-      setsuceessmsg(data.message);
-      seterrmsg("");
-    },
-    onError: (data) => {
-      seterrmsg(data.response.data.message || "Something Wrong");
-      setsuceessmsg("");
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries("user Signup");
-    },
-  });
+// assets
 
-  const sentEmail = () => {
-    mutation.mutate();
-  };
+// ================================|| AUTH3 - LOGIN ||================================ //
 
-  const {
-    errors,
-    values,
-    handleBlur,
-    handleSubmit,
-    handleChange,
-    touched,
-    dirty,
-    isValid,
-  } = useFormik({
-    initialValues: {
-      email: "",
-    },
-    validationSchema,
-    onSubmit: sentEmail,
-  });
-
+const Forgotpass = ({ setrole }) => {
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <AppBar position="fixed" color="primary">
-          <Toolbar>
-            <Typography variant="h6">Find Blackilist</Typography>
-          </Toolbar>
-        </AppBar>
-
-        <Box
-          sx={{
-            marginTop: 11,
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
+    <>
+      <AuthWrapper1>
+        <Grid
+          container
+          direction="column"
+          justifyContent="flex-end"
+          sx={{ minHeight: "100vh" }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
-            <ForwardToInboxOutlinedIcon></ForwardToInboxOutlinedIcon>
-          </Avatar>
-          <Typography component="h1" variant="h5">
-            Forget Password
-          </Typography>
-
-          {errmsg && !suceessmsg && (
-            <Alert severity="error" variant="filled" sx={{ mt: 2, mb: 2 }}>
-              {errmsg}
-            </Alert>
-          )}
-          {suceessmsg && !errmsg && (
-            <Alert severity="success" variant="filled" sx={{ mt: 2, mb: 2 }}>
-              {suceessmsg}
-            </Alert>
-          )}
-
-          <Box
-            component="form"
-            noValidate
-            onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
-            <Grid container spacing={2}>
-              <Grid item xs={12}>
-                <TextField
-                  error={errors.email && touched.email ? true : false}
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  value={values.email}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  sx={{ width: "25rem" }}
-                />
-              </Grid>
-
-              {errors.email && touched.email ? (
-                <Alert
-                  variant="string"
-                  severity="error"
-                  sx={{ color: "#f44336" }}
-                >
-                  {errors.email}
-                </Alert>
-              ) : null}
-            </Grid>
-
-            <LoadingButton
-              sx={{ mt: 3, mb: 2 }}
-              disabled={!dirty || !isValid}
-              onClick={sentEmail}
-              fullWidth
-              loading={mutation.isLoading}
-              variant="contained"
+          <Grid item xs={12}>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              sx={{ minHeight: "calc(100vh - 68px)" }}
             >
-              Sent Email
-            </LoadingButton>
-
-            <Grid container justifyContent="space-between">
-              <Grid item>
-                <RouterLink
-                  to={"/Login"}
-                  style={{
-                    textDecoration: "none",
-                    color: "#1976d2",
-                  }}
-                >
-                  <Typography paragraph>Login</Typography>
-                </RouterLink>
-              </Grid>
-              <Grid item>
-                <Typography paragraph>
-                  <RouterLink
-                    to={"/resetpass"}
-                    style={{
-                      textDecoration: "none",
-                      color: "#1976d2",
-                    }}
+              <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
+                <AuthCardWrapper>
+                  <Grid
+                    container
+                    spacing={2}
+                    alignItems="center"
+                    justifyContent="center"
                   >
-                    Reset Password
-                  </RouterLink>
-                </Typography>
+                    <Grid item sx={{ mb: 1 }}>
+                      <Link to="#">
+                        {/* Find BlackList */}
+                        <Logo />
+                      </Link>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                      <Forgotui setrole={setrole} />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <Divider />
+                    </Grid>
+                  </Grid>
+                </AuthCardWrapper>
               </Grid>
             </Grid>
-          </Box>
-        </Box>
-      </Container>
-    </ThemeProvider>
+          </Grid>
+        </Grid>
+      </AuthWrapper1>
+    </>
   );
-}
+};
 
 export default Forgotpass;

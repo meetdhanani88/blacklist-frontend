@@ -20,7 +20,7 @@ import TableHead from "@mui/material/TableHead";
 import { tableCellClasses } from "@mui/material/TableCell";
 import { styled } from "@mui/material/styles";
 import { Grid } from "@mui/material";
-import { Typography } from "@mui/material";
+
 import { Button } from "@mui/material";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import axiosInstance from "configs";
@@ -29,12 +29,12 @@ import CheckIcon from "@mui/icons-material/Check";
 import CloseIcon from "@mui/icons-material/Close";
 import Rejectreq from "./Rejectreq";
 import { imgurl } from "configs";
-import MainCard from "ui-component/cards/MainCard";
+
 import { gridSpacing } from "store/constant";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
-    backgroundColor: theme.palette.common.black,
+    backgroundColor: "#2986CE",
     color: theme.palette.common.white,
   },
   [`&.${tableCellClasses.body}`]: {
@@ -232,7 +232,14 @@ function ManageBlacklistReq() {
 
                     return (
                       <TableRow key={i}>
-                        <TableCell style={{ width: 100 }}>
+                        <TableCell
+                          style={{ width: 150 }}
+                          sx={{
+                            "&.MuiTableCell-root": {
+                              fontWeight: 700,
+                            },
+                          }}
+                        >
                           {row.vendorName}
                         </TableCell>
                         <TableCell style={{ width: 150 }}>
@@ -245,7 +252,7 @@ function ManageBlacklistReq() {
                         <TableCell style={{ width: 100 }}>
                           {date ? date?.toISOString().substring(0, 10) : null}
                         </TableCell>
-                        <TableCell style={{ width: 100 }}>
+                        <TableCell style={{ width: 150 }}>
                           {row.userId?.firstName + " " + row.userId?.lastName}
                         </TableCell>
                         <TableCell style={{ width: 100 }}>
