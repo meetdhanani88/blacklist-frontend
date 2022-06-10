@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useLayoutEffect, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -29,16 +29,19 @@ const Login = ({ setrole, role, path }) => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
   const [loading, setloading] = useState(true);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (role === 1 && token && path.slice(0, 6) === "/admin") {
       nav(path, { replace: true });
     } else if (role === 2 && token && path.slice(0, 5) === "/user") {
       nav(path, { replace: true });
     } else if (role === 1 && token) {
+      console.log("hi1");
       nav("/admin", { replace: true });
+      console.log("hi2");
     } else if (role === 2 && token) {
       nav("/user", { replace: true });
     }
+    console.log(role, token);
   }, [nav, role, path]);
 
   useEffect(() => {
@@ -55,27 +58,16 @@ const Login = ({ setrole, role, path }) => {
 
       {!loading && (
         <AuthWrapper1>
-          <Grid
-            container
-            direction="column"
-            justifyContent="flex-end"
-            sx={{ minHeight: "100vh" }}
-          >
+          <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: "100vh" }}>
             <Grid item xs={12}>
               <Grid
                 container
                 justifyContent="center"
                 alignItems="center"
-                sx={{ minHeight: "calc(100vh - 68px)" }}
-              >
+                sx={{ minHeight: "calc(100vh - 68px)" }}>
                 <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
                   <AuthCardWrapper>
-                    <Grid
-                      container
-                      spacing={2}
-                      alignItems="center"
-                      justifyContent="center"
-                    >
+                    <Grid container spacing={2} alignItems="center" justifyContent="center">
                       <Grid item sx={{ mb: 3 }}>
                         <Link to="#">
                           {/* Find BlackList */}
@@ -87,26 +79,19 @@ const Login = ({ setrole, role, path }) => {
                           container
                           direction={matchDownSM ? "column-reverse" : "row"}
                           alignItems="center"
-                          justifyContent="center"
-                        >
+                          justifyContent="center">
                           <Grid item>
-                            <Stack
-                              alignItems="center"
-                              justifyContent="center"
-                              spacing={1}
-                            >
+                            <Stack alignItems="center" justifyContent="center" spacing={1}>
                               <Typography
                                 color={theme.palette.secondary.main}
                                 gutterBottom
-                                variant={matchDownSM ? "h3" : "h2"}
-                              >
+                                variant={matchDownSM ? "h3" : "h2"}>
                                 Hi, Welcome Back
                               </Typography>
                               <Typography
                                 variant="caption"
                                 fontSize="16px"
-                                textAlign={matchDownSM ? "center" : "inherit"}
-                              >
+                                textAlign={matchDownSM ? "center" : "inherit"}>
                                 Enter your credentials to continue
                               </Typography>
                             </Stack>
@@ -120,19 +105,12 @@ const Login = ({ setrole, role, path }) => {
                         <Divider />
                       </Grid>
                       <Grid item xs={12}>
-                        <Grid
-                          item
-                          container
-                          direction="column"
-                          alignItems="center"
-                          xs={12}
-                        >
+                        <Grid item container direction="column" alignItems="center" xs={12}>
                           <Typography
                             component={Link}
                             to="/pages/register/register3"
                             variant="subtitle1"
-                            sx={{ textDecoration: "none" }}
-                          >
+                            sx={{ textDecoration: "none" }}>
                             Don&apos;t have an account?
                           </Typography>
                         </Grid>

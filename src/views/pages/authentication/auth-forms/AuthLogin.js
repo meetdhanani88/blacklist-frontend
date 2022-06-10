@@ -48,6 +48,7 @@ const FirebaseLogin = ({ setrole }) => {
   //const dispatch = useDispatch();
   const [suceessmsg, setsuceessmsg] = useState(false);
   const [errmsg, seterrmsg] = useState(false);
+  const [load, setload] = useState(true);
 
   const [myval, setmyval] = useState("");
   const dispatch = useDispatch();
@@ -108,6 +109,10 @@ const FirebaseLogin = ({ setrole }) => {
       }
     },
     onError: (data) => {
+      if (data.code === "ERR_NETWORK") {
+        seterrmsg("No Network");
+        setload(false);
+      }
       seterrmsg(data.response.data.message || "Something Wrong");
       setsuceessmsg("");
     },
@@ -124,8 +129,7 @@ const FirebaseLogin = ({ setrole }) => {
           xs={12}
           container
           alignItems="center"
-          justifyContent="center"
-        >
+          justifyContent="center">
           <Box sx={{ mb: 2 }}>
             <Typography variant="subtitle1">
               Sign in with Email address
@@ -158,8 +162,7 @@ const FirebaseLogin = ({ setrole }) => {
         onSubmit={async (values) => {
           setmyval(values);
           mutate(values);
-        }}
-      >
+        }}>
         {({
           errors,
           handleBlur,
@@ -173,8 +176,7 @@ const FirebaseLogin = ({ setrole }) => {
             <FormControl
               fullWidth
               error={Boolean(touched.email && errors.email)}
-              sx={{ ...theme.typography.customInput }}
-            >
+              sx={{ ...theme.typography.customInput }}>
               <InputLabel htmlFor="outlined-adornment-email-login">
                 Email Address / Username
               </InputLabel>
@@ -191,8 +193,7 @@ const FirebaseLogin = ({ setrole }) => {
               {touched.email && errors.email && (
                 <FormHelperText
                   error
-                  id="standard-weight-helper-text-email-login"
-                >
+                  id="standard-weight-helper-text-email-login">
                   {errors.email}
                 </FormHelperText>
               )}
@@ -201,8 +202,7 @@ const FirebaseLogin = ({ setrole }) => {
             <FormControl
               fullWidth
               error={Boolean(touched.password && errors.password)}
-              sx={{ ...theme.typography.customInput }}
-            >
+              sx={{ ...theme.typography.customInput }}>
               <InputLabel htmlFor="outlined-adornment-password-login">
                 Password
               </InputLabel>
@@ -220,8 +220,7 @@ const FirebaseLogin = ({ setrole }) => {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
-                      size="large"
-                    >
+                      size="large">
                       {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
@@ -232,8 +231,7 @@ const FirebaseLogin = ({ setrole }) => {
               {touched.password && errors.password && (
                 <FormHelperText
                   error
-                  id="standard-weight-helper-text-password-login"
-                >
+                  id="standard-weight-helper-text-password-login">
                   {errors.password}
                 </FormHelperText>
               )}
@@ -242,22 +240,19 @@ const FirebaseLogin = ({ setrole }) => {
               direction="row"
               alignItems="center"
               justifyContent="space-between"
-              spacing={1}
-            >
+              spacing={1}>
               <Typography
                 variant="subtitle1"
                 color="secondary"
                 sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => nav("/resetpass")}
-              >
+                onClick={() => nav("/resetpass")}>
                 Reset Password?
               </Typography>
               <Typography
                 variant="subtitle1"
                 color="secondary"
                 sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => nav("/forgotpass")}
-              >
+                onClick={() => nav("/forgotpass")}>
                 Forgot Password?
               </Typography>
             </Stack>
@@ -276,8 +271,7 @@ const FirebaseLogin = ({ setrole }) => {
                   type="submit"
                   variant="contained"
                   color="secondary"
-                  loading={isLoading}
-                >
+                  loading={load && isLoading}>
                   Sign in
                 </LoadingButton>
               </AnimateButton>
