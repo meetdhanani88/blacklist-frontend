@@ -42,7 +42,6 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
     onSuccess: (data) => {
       Toast({ message: data.data.message });
       Listofuser.refetch();
-
       handleReset();
       handleClosepop();
     },
@@ -55,6 +54,7 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
       handleClosepop();
     },
     onSettled: () => {
+      handleReset();
       queryClient.invalidateQueries("added blacklist");
     },
   });
@@ -99,29 +99,19 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
   const validationSchema = Yup.object({
     vendorname: Yup.string().required("vendorname is required"),
     address: Yup.string().required("address is required"),
-    reason: Yup.string()
-      .required("reason is required")
-      .min(10, "Minimum 10 char Require"),
+    reason: Yup.string().required("reason is required").min(10, "Minimum 10 char Require"),
   });
 
-  const {
-    errors,
-    values,
-    handleBlur,
-    handleSubmit,
-    handleChange,
-    touched,
-    isValid,
-    handleReset,
-  } = useFormik({
-    initialValues: {
-      vendorname: "",
-      address: "",
-      reason: "",
-    },
-    validationSchema,
-    onSubmit: handelAddBlacklist,
-  });
+  const { errors, values, handleBlur, handleSubmit, handleChange, touched, isValid, handleReset } =
+    useFormik({
+      initialValues: {
+        vendorname: "",
+        address: "",
+        reason: "",
+      },
+      validationSchema,
+      onSubmit: handelAddBlacklist,
+    });
 
   function handleImage(event) {
     let image = event.target.files[0];
@@ -141,13 +131,10 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
         maxWidth="sm"
         scroll="paper"
         aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
-      >
+        aria-describedby="scroll-dialog-description">
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{}}>
           {role === "user" ? (
-            <DialogTitle id="scroll-dialog-title">
-              Sent New BlackList Request
-            </DialogTitle>
+            <DialogTitle id="scroll-dialog-title">Sent New BlackList Request</DialogTitle>
           ) : (
             <DialogTitle id="scroll-dialog-title" fontSize={"1rem"}>
               Add New Vendor to BlackList
@@ -176,11 +163,7 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
               onBlur={handleBlur}
             />
             {errors.vendorname && touched.vendorname ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.vendorname}
               </Alert>
             ) : null}
@@ -199,11 +182,7 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
               onBlur={handleBlur}
             />
             {errors.address && touched.address ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.address}
               </Alert>
             ) : null}
@@ -222,11 +201,7 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
               onBlur={handleBlur}
             />
             {errors.reason && touched.reason ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.reason}
               </Alert>
             ) : null}
@@ -244,11 +219,7 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
             </Button>
             <div>
               {imageFile && (
-                <img
-                  src={URL.createObjectURL(imageFile)}
-                  alt=""
-                  style={{ width: "100%" }}
-                />
+                <img src={URL.createObjectURL(imageFile)} alt="" style={{ width: "100%" }} />
               )}
             </div>
           </DialogContent>
@@ -257,8 +228,7 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
             <Button
               onClick={() => {
                 handleClosepop(handleReset);
-              }}
-            >
+              }}>
               Cancel
             </Button>
 
@@ -266,16 +236,14 @@ const Addblacklist = ({ openpop, handleClosepop, Listofuser, role }) => {
               <LoadingButton
                 loading={Addblacklist.isLoading}
                 onClick={() => handelAddBlacklist("user")}
-                disabled={!isValid || values.vendorname === ""}
-              >
+                disabled={!isValid || values.vendorname === ""}>
                 Sent Request
               </LoadingButton>
             ) : (
               <LoadingButton
                 loading={Addblacklist.isLoading}
                 onClick={() => handelAddBlacklist("admin")}
-                disabled={!isValid || values.vendorname === ""}
-              >
+                disabled={!isValid || values.vendorname === ""}>
                 Add to Blacklist
               </LoadingButton>
             )}

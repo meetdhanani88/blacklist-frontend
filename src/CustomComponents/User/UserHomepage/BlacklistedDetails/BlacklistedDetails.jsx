@@ -44,8 +44,7 @@ const BlacklistedDetails = () => {
         <Button
           onClick={() => navigate("/user")}
           sx={classes.btnBack}
-          startIcon={<ArrowBackIcon></ArrowBackIcon>}
-        >
+          startIcon={<ArrowBackIcon></ArrowBackIcon>}>
           Back
         </Button>
       </Paper>
@@ -74,9 +73,7 @@ const BlacklistedDetails = () => {
                       </li>
                       <li>
                         <span>Date of Blacklist:</span>{" "}
-                        {new Date(vendor.createdAt)
-                          .toISOString()
-                          .substring(0, 10)}
+                        {new Date(vendor.createdAt).toISOString().substring(0, 10)}
                       </li>
                       <li>
                         {vendor.image ? (
@@ -84,8 +81,7 @@ const BlacklistedDetails = () => {
                             href={`${imgurl}/${vendor.image}`}
                             underline="hover"
                             target="_blank"
-                            rel="noreferrer"
-                          >
+                            rel="noreferrer">
                             Photo Proof
                           </Link>
                         ) : (

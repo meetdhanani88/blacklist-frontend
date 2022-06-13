@@ -3,13 +3,7 @@ import { useState, useEffect } from "react";
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
-import {
-  Divider,
-  Grid,
-  useMediaQuery,
-  CircularProgress,
-  Box,
-} from "@mui/material";
+import { Divider, Grid, useMediaQuery, CircularProgress, Box } from "@mui/material";
 
 // project imports
 
@@ -42,27 +36,16 @@ const Reset = () => {
 
       {!loading && (
         <AuthWrapper1>
-          <Grid
-            container
-            direction="column"
-            justifyContent="flex-end"
-            sx={{ minHeight: "100vh" }}
-          >
+          <Grid container direction="column" justifyContent="flex-end" sx={{ minHeight: "100vh" }}>
             <Grid item xs={12}>
               <Grid
                 container
                 justifyContent="center"
                 alignItems="center"
-                sx={{ minHeight: "calc(100vh - 68px)" }}
-              >
+                sx={{ minHeight: "calc(100vh - 68px)" }}>
                 <Grid item sx={{ m: { xs: 1, sm: 3 }, mb: 0 }}>
                   <AuthCardWrapper>
-                    <Grid
-                      container
-                      spacing={2}
-                      alignItems="center"
-                      justifyContent="center"
-                    >
+                    <Grid container spacing={2} alignItems="center" justifyContent="center">
                       <Grid item sx={{ mb: 1 }}>
                         <Link to="#">
                           {/* Find BlackList */}
@@ -74,8 +57,7 @@ const Reset = () => {
                           container
                           direction={matchDownSM ? "column-reverse" : "row"}
                           alignItems="center"
-                          justifyContent="center"
-                        ></Grid>
+                          justifyContent="center"></Grid>
                       </Grid>
                       <Grid item xs={12}>
                         {/* <AuthLogin setrole={setrole} /> */}

@@ -16,17 +16,11 @@ import LoadingButton from "@mui/lab/LoadingButton";
 
 import { Grid } from "@mui/material";
 
-const EditSubscription = ({
-  openEditsubpop,
-  handleCloseEditsubpop,
-  listofuser,
-}) => {
+const EditSubscription = ({ openEditsubpop, handleCloseEditsubpop, listofuser }) => {
   const [Edituserdata, setEdituserdata] = React.useState({});
   const queryClient = useQueryClient();
   const userlist = useSelector((state) => state.Login.blacklistedvendorlist);
-  const userEditId = useSelector(
-    (state) => state.Login.blacklistedvendorlistId
-  );
+  const userEditId = useSelector((state) => state.Login.blacklistedvendorlistId);
   const [option, setoption] = React.useState(1);
 
   useLayoutEffect(() => {
@@ -35,12 +29,9 @@ const EditSubscription = ({
   }, [userlist, userEditId]);
 
   const Addsub = async () => {
-    const res = await axiosInstance.post(
-      `/vendor/updateCategory/${Edituserdata._id}`,
-      {
-        category: option,
-      }
-    );
+    const res = await axiosInstance.post(`/vendor/updateCategory/${Edituserdata._id}`, {
+      category: option,
+    });
 
     return res;
   };
@@ -79,8 +70,7 @@ const EditSubscription = ({
         scroll="paper"
         fullWidth
         aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
-      >
+        aria-describedby="scroll-dialog-description">
         <Box component="form">
           <DialogTitle id="scroll-dialog-title" fontSize={"1rem"}>
             Edit Category
@@ -94,23 +84,17 @@ const EditSubscription = ({
             <Grid container direction={"column"}>
               <Grid item>
                 <>
-                  <p>
-                    Vendor Blacklisting Category will be Updated based on
-                    selected Value
-                  </p>
+                  <p>Vendor Blacklisting Category will be Updated based on selected Value</p>
                 </>
 
                 <FormControl size="medium" sx={{ mt: 2, minWidth: 200 }}>
-                  <InputLabel id="demo-simple-select-label">
-                    Subscription Plan
-                  </InputLabel>
+                  <InputLabel id="demo-simple-select-label">Subscription Plan</InputLabel>
                   <Select
                     labelId="demo-simple-select-label"
                     id="subplan"
                     label="Subscription Plan"
                     value={option}
-                    onChange={(e) => setoption(e.target.value)}
-                  >
+                    onChange={(e) => setoption(e.target.value)}>
                     <MenuItem value={1}>Blacklisted</MenuItem>
                     <MenuItem value={2}>Highly Cautious</MenuItem>
                     <MenuItem value={3}>Cautious</MenuItem>
@@ -122,10 +106,7 @@ const EditSubscription = ({
 
           <DialogActions>
             <Button onClick={handleCloseEditsubpop}>Cancel</Button>
-            <LoadingButton
-              onClick={expSubmit}
-              loading={Addsubmutation.isLoading}
-            >
+            <LoadingButton onClick={expSubmit} loading={Addsubmutation.isLoading}>
               Edit Category
             </LoadingButton>
           </DialogActions>

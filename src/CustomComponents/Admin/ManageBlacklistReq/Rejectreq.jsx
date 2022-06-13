@@ -19,12 +19,9 @@ const Rejectreq = ({ openpop, handleClosepop, Listofuser, rejectVendorId }) => {
   const queryClient = useQueryClient();
 
   async function Rejectvendor() {
-    const res = await axiosInstance.post(
-      `/vendor/rejectRequest/${rejectVendorId}`,
-      {
-        reason: values.reason,
-      }
-    );
+    const res = await axiosInstance.post(`/vendor/rejectRequest/${rejectVendorId}`, {
+      reason: values.reason,
+    });
 
     return res;
   }
@@ -49,27 +46,17 @@ const Rejectreq = ({ openpop, handleClosepop, Listofuser, rejectVendorId }) => {
   }
 
   const validationSchema = Yup.object({
-    reason: Yup.string()
-      .min(10, "Minimum Length 10")
-      .required("Reason is require"),
+    reason: Yup.string().min(10, "Minimum Length 10").required("Reason is require"),
   });
 
-  const {
-    errors,
-    values,
-    handleBlur,
-    handleSubmit,
-    handleChange,
-    touched,
-    isValid,
-    handleReset,
-  } = useFormik({
-    initialValues: {
-      reason: "",
-    },
-    validationSchema,
-    onSubmit: handelRejectvendor,
-  });
+  const { errors, values, handleBlur, handleSubmit, handleChange, touched, isValid, handleReset } =
+    useFormik({
+      initialValues: {
+        reason: "",
+      },
+      validationSchema,
+      onSubmit: handelRejectvendor,
+    });
 
   return (
     <div>
@@ -80,8 +67,7 @@ const Rejectreq = ({ openpop, handleClosepop, Listofuser, rejectVendorId }) => {
         scroll="paper"
         fullWidth
         aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
-      >
+        aria-describedby="scroll-dialog-description">
         <Box component="form" noValidate onSubmit={handleSubmit}>
           <DialogTitle id="scroll-dialog-title" fontSize={"1rem"}>
             Reason For Rejection
@@ -93,9 +79,7 @@ const Rejectreq = ({ openpop, handleClosepop, Listofuser, rejectVendorId }) => {
                 {errmsg}
               </Alert>
             )}
-            <DialogContentText>
-              Give Reason for Rejecting request of Blacklist.
-            </DialogContentText>
+            <DialogContentText>Give Reason for Rejecting request of Blacklist.</DialogContentText>
 
             <TextField
               error={errors.reason && touched.reason ? true : false}
@@ -112,11 +96,7 @@ const Rejectreq = ({ openpop, handleClosepop, Listofuser, rejectVendorId }) => {
               onBlur={handleBlur}
             />
             {errors.reason && touched.reason ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.reason}
               </Alert>
             ) : null}
@@ -127,8 +107,7 @@ const Rejectreq = ({ openpop, handleClosepop, Listofuser, rejectVendorId }) => {
             <LoadingButton
               loading={mutation.isLoading}
               onClick={handelRejectvendor}
-              disabled={!isValid || values.reason === ""}
-            >
+              disabled={!isValid || values.reason === ""}>
               Reject Request
             </LoadingButton>
           </DialogActions>

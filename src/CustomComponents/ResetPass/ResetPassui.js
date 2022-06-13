@@ -40,7 +40,7 @@ import { LoadingButton } from "@mui/lab";
 
 // ============================|| FIREBASE - LOGIN ||============================ //
 
-const ResetPassui = () => {
+const ResetPassui = ({ location }) => {
   const nav = useNavigate();
   const queryClient = useQueryClient();
   //const dispatch = useDispatch();
@@ -89,13 +89,7 @@ const ResetPassui = () => {
   return (
     <>
       <Grid container direction="column" justifyContent="center" spacing={2}>
-        <Grid
-          item
-          xs={12}
-          container
-          alignItems="center"
-          justifyContent="center"
-        >
+        <Grid item xs={12} container alignItems="center" justifyContent="center">
           <Box sx={{ mb: 2 }}>
             <Typography variant="subtitle1">Reset Your Password</Typography>
           </Box>
@@ -113,15 +107,12 @@ const ResetPassui = () => {
       )}
       <Formik
         initialValues={{
-          email: "",
-          oldpassword: "",
+          email: location?.state?.email || "",
+          oldpassword: location?.state?.pass || "",
           newpassword: "",
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email("Must be a valid email")
-            .max(255)
-            .required("Email is required"),
+          email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
           oldpassword: Yup.string().max(255).required("Password is required"),
           newpassword: Yup.string()
             .oneOf([Yup.ref("newpassword"), null], "Passwords must match")
@@ -131,23 +122,13 @@ const ResetPassui = () => {
         onSubmit={async (values) => {
           setmyval(values);
           mutate(values);
-        }}
-      >
-        {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-          touched,
-          values,
-        }) => (
+        }}>
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <FormControl
               fullWidth
               error={Boolean(touched.email && errors.email)}
-              sx={{ ...theme.typography.customInput }}
-            >
+              sx={{ ...theme.typography.customInput }}>
               <InputLabel htmlFor="outlined-adornment-email-login">
                 Email Address / Username
               </InputLabel>
@@ -162,10 +143,7 @@ const ResetPassui = () => {
                 inputProps={{}}
               />
               {touched.email && errors.email && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-email-login"
-                >
+                <FormHelperText error id="standard-weight-helper-text-email-login">
                   {errors.email}
                 </FormHelperText>
               )}
@@ -174,11 +152,8 @@ const ResetPassui = () => {
             <FormControl
               fullWidth
               error={Boolean(touched.oldpassword && errors.oldpassword)}
-              sx={{ ...theme.typography.customInput }}
-            >
-              <InputLabel htmlFor="outlined-adornment-password-login">
-                Old Password
-              </InputLabel>
+              sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-password-login">Old Password</InputLabel>
               <OutlinedInput
                 id="oldpassword"
                 type={showPassword ? "text" : "password"}
@@ -193,8 +168,7 @@ const ResetPassui = () => {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
-                      size="large"
-                    >
+                      size="large">
                       {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
@@ -203,10 +177,7 @@ const ResetPassui = () => {
                 inputProps={{}}
               />
               {touched.oldpassword && errors.oldpassword && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-password-login"
-                >
+                <FormHelperText error id="standard-weight-helper-text-password-login">
                   {errors.oldpassword}
                 </FormHelperText>
               )}
@@ -215,11 +186,8 @@ const ResetPassui = () => {
             <FormControl
               fullWidth
               error={Boolean(touched.newpassword && errors.newpassword)}
-              sx={{ ...theme.typography.customInput }}
-            >
-              <InputLabel htmlFor="outlined-adornment-password-login">
-                New Password
-              </InputLabel>
+              sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-password-login">New Password</InputLabel>
               <OutlinedInput
                 id="newpassword"
                 type={showPassword ? "text" : "password"}
@@ -234,8 +202,7 @@ const ResetPassui = () => {
                       onClick={handleClickShowPassword}
                       onMouseDown={handleMouseDownPassword}
                       edge="end"
-                      size="large"
-                    >
+                      size="large">
                       {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>
                   </InputAdornment>
@@ -244,35 +211,25 @@ const ResetPassui = () => {
                 inputProps={{}}
               />
               {touched.newpassword && errors.newpassword && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-password-login"
-                >
+                <FormHelperText error id="standard-weight-helper-text-password-login">
                   {errors.newpassword}
                 </FormHelperText>
               )}
             </FormControl>
 
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              spacing={1}
-            >
+            <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
               <Typography
                 variant="subtitle1"
                 color="secondary"
                 sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => nav("/login")}
-              >
+                onClick={() => nav("/login")}>
                 Login?
               </Typography>
               <Typography
                 variant="subtitle1"
                 color="secondary"
                 sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => nav("/forgotpass")}
-              >
+                onClick={() => nav("/forgotpass")}>
                 Forgot Password?
               </Typography>
             </Stack>
@@ -291,8 +248,7 @@ const ResetPassui = () => {
                   type="submit"
                   variant="contained"
                   color="secondary"
-                  loading={isLoading}
-                >
+                  loading={isLoading}>
                   Reset Password
                 </LoadingButton>
               </AnimateButton>

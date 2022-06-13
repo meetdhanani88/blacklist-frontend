@@ -29,15 +29,12 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
   }, [userlist, userEditId]);
 
   async function EditCreateduser() {
-    const res = await axiosInstance.post(
-      `/user/updateUser/${Edituserdata._id}`,
-      {
-        firstName: values.firstname,
-        lastName: values.lastname,
-        email: values.email,
-        mobileNo: values.mobileNo,
-      }
-    );
+    const res = await axiosInstance.post(`/user/updateUser/${Edituserdata._id}`, {
+      firstName: values.firstname,
+      lastName: values.lastname,
+      email: values.email,
+      mobileNo: values.mobileNo,
+    });
 
     return res;
   }
@@ -64,31 +61,21 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
     firstname: Yup.string().required("firstname is required"),
     lastname: Yup.string().required("lastname is required"),
     email: Yup.string().email("Invalid Email").required("email is required"),
-    mobileNo: Yup.string()
-      .min(10, "Minimum Length 10")
-      .required("mobile no is require"),
+    mobileNo: Yup.string().min(10, "Minimum Length 10").required("mobile no is require"),
   });
 
-  const {
-    errors,
-    values,
-    handleBlur,
-    handleSubmit,
-    handleChange,
-    touched,
-    isValid,
-    handleReset,
-  } = useFormik({
-    initialValues: {
-      firstname: Edituserdata.firstName,
-      lastname: Edituserdata.lastName,
-      email: Edituserdata.email,
-      mobileNo: Edituserdata.mobileNo,
-    },
-    validationSchema,
-    onSubmit: handelEdiuser,
-    enableReinitialize: true,
-  });
+  const { errors, values, handleBlur, handleSubmit, handleChange, touched, isValid, handleReset } =
+    useFormik({
+      initialValues: {
+        firstname: Edituserdata.firstName,
+        lastname: Edituserdata.lastName,
+        email: Edituserdata.email,
+        mobileNo: Edituserdata.mobileNo,
+      },
+      validationSchema,
+      onSubmit: handelEdiuser,
+      enableReinitialize: true,
+    });
 
   return (
     <div>
@@ -98,8 +85,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
         maxWidth="sm"
         scroll="paper"
         aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
-      >
+        aria-describedby="scroll-dialog-description">
         <Box component="form" noValidate onSubmit={handleSubmit}>
           <DialogTitle id="scroll-dialog-title" fontSize={"1rem"}>
             Edit Existing User Data
@@ -128,11 +114,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
               onBlur={handleBlur}
             />
             {errors.firstname && touched.firstname ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.firstname}
               </Alert>
             ) : null}
@@ -151,11 +133,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
               onBlur={handleBlur}
             />
             {errors.lastname && touched.lastname ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.lastname}
               </Alert>
             ) : null}
@@ -176,11 +154,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
               disabled
             />
             {errors.email && touched.email ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.email}
               </Alert>
             ) : null}
@@ -200,11 +174,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
               onBlur={handleBlur}
             />
             {errors.mobileNo && touched.mobileNo ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.mobileNo}
               </Alert>
             ) : null}
@@ -212,10 +182,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
 
           <DialogActions>
             <Button onClick={handleCloseEdituserpop}>Cancel</Button>
-            <Button
-              onClick={handelEdiuser}
-              disabled={!isValid || values.firstname === ""}
-            >
+            <Button onClick={handelEdiuser} disabled={!isValid || values.firstname === ""}>
               Edit User
             </Button>
           </DialogActions>

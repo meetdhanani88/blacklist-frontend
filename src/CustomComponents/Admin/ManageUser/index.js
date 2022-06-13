@@ -33,14 +33,10 @@ import Adduser from "./Adduser";
 import { useQuery, useMutation, useQueryClient } from "react-query";
 import axiosInstance from "configs";
 import { useDispatch } from "react-redux";
-//import { LoginAction } from '../../../redux/reducersSlice/Loginslice';
 import { useEffect } from "react";
 import Edituser from "./Edituser";
 import EditSubscription from "./EditSubscription";
-//import Toast from '../../../Helper/Toast';
 import { gridSpacing } from "store/constant";
-// project imports
-//import MainCard from "ui-component/cards/MainCard";
 import { GETUSEREDITID, USERLIST } from "store/actions";
 import Toast from "Helper/Toast";
 
@@ -82,25 +78,14 @@ function TablePaginationActions(props) {
         aria-label="first page">
         {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page">
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowRight />
-        ) : (
-          <KeyboardArrowLeft />
-        )}
+      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+        {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
         aria-label="next page">
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowLeft />
-        ) : (
-          <KeyboardArrowRight />
-        )}
+        {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
@@ -150,12 +135,10 @@ function CustomPaginationActionsTable() {
   const rows = query?.data?.data;
 
   useEffect(() => {
-    // dispatch(LoginAction.userList(rows))
     dispatch({ type: USERLIST, payload: rows });
   }, [rows, dispatch]);
 
   const Edituserfun = (btnid) => {
-    // dispatch(LoginAction.GetuserEditId(btnid.id))
     dispatch({ type: GETUSEREDITID, payload: btnid.id });
     handleClose();
     handleClickOpenEdituserpop();
@@ -193,8 +176,7 @@ function CustomPaginationActionsTable() {
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -208,10 +190,7 @@ function CustomPaginationActionsTable() {
   return (
     <>
       {openpop && (
-        <Adduser
-          openpop={openpop}
-          handleClosepop={handleClosepop}
-          Listofuser={query}></Adduser>
+        <Adduser openpop={openpop} handleClosepop={handleClosepop} Listofuser={query}></Adduser>
       )}
       {openEdituserpop && (
         <Edituser
@@ -228,18 +207,9 @@ function CustomPaginationActionsTable() {
       )}
 
       <Grid container spacing={gridSpacing}>
-        <Grid
-          container
-          item
-          xs={12}
-          justifyContent={"space-between"}
-          alignContent={"center"}>
+        <Grid container item xs={12} justifyContent={"space-between"} alignContent={"center"}>
           <h1>Users</h1>
-          <Fab
-            color="primary"
-            aria-label="add"
-            variant="extended"
-            onClick={handleClickOpenpop}>
+          <Fab color="primary" aria-label="add" variant="extended" onClick={handleClickOpenpop}>
             <AddIcon sx={{ mr: 1 }} />
             Add User
           </Fab>
@@ -263,15 +233,10 @@ function CustomPaginationActionsTable() {
               {rows?.length > 0 && (
                 <TableBody>
                   {(rowsPerPage > 0
-                    ? rows?.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
+                    ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     : rows
                   )?.map((row, i) => {
-                    let date = row?.expiryDate
-                      ? new Date(row.expiryDate)
-                      : null;
+                    let date = row?.expiryDate ? new Date(row.expiryDate) : null;
 
                     return (
                       <TableRow key={row?._id}>
@@ -289,15 +254,9 @@ function CustomPaginationActionsTable() {
                           }}>
                           {row.lastName}
                         </TableCell>
-                        <TableCell style={{ width: 100 }}>
-                          {row.email}
-                        </TableCell>
-                        <TableCell style={{ width: 100 }}>
-                          {row.mobileNo}
-                        </TableCell>
-                        <TableCell style={{ width: 70 }}>
-                          {row?.plan?.title}
-                        </TableCell>
+                        <TableCell style={{ width: 100 }}>{row.email}</TableCell>
+                        <TableCell style={{ width: 100 }}>{row.mobileNo}</TableCell>
+                        <TableCell style={{ width: 70 }}>{row?.plan?.title}</TableCell>
                         <TableCell style={{ width: 70 }}>
                           {date ? date?.toISOString().substring(0, 10) : null}
                         </TableCell>
@@ -323,8 +282,7 @@ function CustomPaginationActionsTable() {
                             }}
                             sx={{
                               "& .MuiMenu-paper": {
-                                boxShadow:
-                                  "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+                                boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
                               },
                             }}>
                             <MenuItem onClick={() => Edituserfun(anchorEl)}>
@@ -342,10 +300,7 @@ function CustomPaginationActionsTable() {
                             </MenuItem>
                             <MenuItem onClick={() => Editsubrfun(anchorEl)}>
                               <ListItemIcon>
-                                <SubscriptionsIcon
-                                  fontSize="small"
-                                  color="success"
-                                />
+                                <SubscriptionsIcon fontSize="small" color="success" />
                               </ListItemIcon>
                               <ListItemText>Edit Subscription</ListItemText>
                             </MenuItem>
@@ -366,12 +321,7 @@ function CustomPaginationActionsTable() {
               <TableFooter>
                 <TableRow>
                   <TablePagination
-                    rowsPerPageOptions={[
-                      5,
-                      10,
-                      25,
-                      { label: "All", value: -1 },
-                    ]}
+                    rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                     colSpan={7}
                     count={rows ? rows?.length : 0}
                     rowsPerPage={rowsPerPage}

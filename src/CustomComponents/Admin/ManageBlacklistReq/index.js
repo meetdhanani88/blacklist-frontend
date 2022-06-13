@@ -67,37 +67,22 @@ function TablePaginationActions(props) {
       <IconButton
         onClick={handleFirstPageButtonClick}
         disabled={page === 0}
-        aria-label="first page"
-      >
+        aria-label="first page">
         {theme.direction === "rtl" ? <LastPageIcon /> : <FirstPageIcon />}
       </IconButton>
-      <IconButton
-        onClick={handleBackButtonClick}
-        disabled={page === 0}
-        aria-label="previous page"
-      >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowRight />
-        ) : (
-          <KeyboardArrowLeft />
-        )}
+      <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
+        {theme.direction === "rtl" ? <KeyboardArrowRight /> : <KeyboardArrowLeft />}
       </IconButton>
       <IconButton
         onClick={handleNextButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="next page"
-      >
-        {theme.direction === "rtl" ? (
-          <KeyboardArrowLeft />
-        ) : (
-          <KeyboardArrowRight />
-        )}
+        aria-label="next page">
+        {theme.direction === "rtl" ? <KeyboardArrowLeft /> : <KeyboardArrowRight />}
       </IconButton>
       <IconButton
         onClick={handleLastPageButtonClick}
         disabled={page >= Math.ceil(count / rowsPerPage) - 1}
-        aria-label="last page"
-      >
+        aria-label="last page">
         {theme.direction === "rtl" ? <FirstPageIcon /> : <LastPageIcon />}
       </IconButton>
     </Box>
@@ -166,8 +151,7 @@ function ManageBlacklistReq() {
   };
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -189,17 +173,11 @@ function ManageBlacklistReq() {
           openpop={openpop}
           handleClosepop={handleClosepop}
           rejectVendorId={rejectVendorId}
-          Listofuser={getallReqquery}
-        ></Rejectreq>
+          Listofuser={getallReqquery}></Rejectreq>
       )}
 
       <Grid container spacing={gridSpacing}>
-        <Grid
-          item
-          xs={12}
-          justifyContent={"space-between"}
-          alignContent={"center"}
-        >
+        <Grid item xs={12} justifyContent={"space-between"} alignContent={"center"}>
           <h1>Requests for Blacklist</h1>
         </Grid>
 
@@ -222,10 +200,7 @@ function ManageBlacklistReq() {
               {rows?.length > 0 && (
                 <TableBody>
                   {(rowsPerPage > 0
-                    ? rows?.slice(
-                        page * rowsPerPage,
-                        page * rowsPerPage + rowsPerPage
-                      )
+                    ? rows?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     : rows
                   )?.map((row, i) => {
                     let date = row?.createdAt ? new Date(row.createdAt) : null;
@@ -238,16 +213,11 @@ function ManageBlacklistReq() {
                             "&.MuiTableCell-root": {
                               fontWeight: 700,
                             },
-                          }}
-                        >
+                          }}>
                           {row.vendorName}
                         </TableCell>
-                        <TableCell style={{ width: 150 }}>
-                          {row.reason}
-                        </TableCell>
-                        <TableCell style={{ width: 150 }}>
-                          {row.address}
-                        </TableCell>
+                        <TableCell style={{ width: 150 }}>{row.reason}</TableCell>
+                        <TableCell style={{ width: 150 }}>{row.address}</TableCell>
 
                         <TableCell style={{ width: 100 }}>
                           {date ? date?.toISOString().substring(0, 10) : null}
@@ -261,8 +231,7 @@ function ManageBlacklistReq() {
                               href={`${imgurl}/${row.image}`}
                               underline="hover"
                               target="_blank"
-                              rel="noreferrer"
-                            >
+                              rel="noreferrer">
                               Photo Proof
                             </Link>
                           ) : (
@@ -270,31 +239,25 @@ function ManageBlacklistReq() {
                           )}
                         </TableCell>
 
-                        <TableCell
-                          style={{ width: 10 }}
-                          onClick={() => acceptpost(row._id)}
-                        >
+                        <TableCell style={{ width: 10 }} onClick={() => acceptpost(row._id)}>
                           <Button
                             variant="outlined"
                             startIcon={<CheckIcon />}
                             color="success"
                             size="small"
-                            fullWidth
-                          >
+                            fullWidth>
                             Accept
                           </Button>
                         </TableCell>
                         <TableCell
                           style={{ width: 10 }}
-                          onClick={() => handleClickOpenpop(row._id)}
-                        >
+                          onClick={() => handleClickOpenpop(row._id)}>
                           <Button
                             variant="outlined"
                             startIcon={<CloseIcon />}
                             color="error"
                             size="small"
-                            fullWidth
-                          >
+                            fullWidth>
                             Reject
                           </Button>
                         </TableCell>
@@ -313,12 +276,7 @@ function ManageBlacklistReq() {
               <TableFooter>
                 <TableRow>
                   <TablePagination
-                    rowsPerPageOptions={[
-                      5,
-                      10,
-                      25,
-                      { label: "All", value: -1 },
-                    ]}
+                    rowsPerPageOptions={[5, 10, 25, { label: "All", value: -1 }]}
                     colSpan={7}
                     count={rows ? rows?.length : 0}
                     rowsPerPage={rowsPerPage}

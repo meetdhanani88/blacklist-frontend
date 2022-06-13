@@ -24,11 +24,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { Grid } from "@mui/material";
 
-const EditSubscription = ({
-  openEdituserpop,
-  handleCloseEdituserpop,
-  listofuser,
-}) => {
+const EditSubscription = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
   const [Edituserdata, setEdituserdata] = React.useState({});
   const queryClient = useQueryClient();
   const userlist = useSelector((state) => state.Login.userlist);
@@ -38,9 +34,7 @@ const EditSubscription = ({
   const [date, setdate] = React.useState(null);
 
   async function Inactiveplan() {
-    const res = await axiosInstance.post(
-      `/user/userActiveOrInActive/${userEditId}`
-    );
+    const res = await axiosInstance.post(`/user/userActiveOrInActive/${userEditId}`);
 
     return res;
   }
@@ -73,12 +67,9 @@ const EditSubscription = ({
   });
 
   const Addsub = async () => {
-    const res = await axiosInstance.post(
-      `/user/extendExpiryDate/${Edituserdata._id}`,
-      {
-        expiryDate: date,
-      }
-    );
+    const res = await axiosInstance.post(`/user/extendExpiryDate/${Edituserdata._id}`, {
+      expiryDate: date,
+    });
 
     return res;
   };
@@ -182,10 +173,7 @@ const EditSubscription = ({
               <Grid item>
                 {radioval === "extendExpiry" ? (
                   <>
-                    <p>
-                      User current plan expiry will be extended based on
-                      selected date
-                    </p>
+                    <p>User current plan expiry will be extended based on selected date</p>
 
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                       <DatePicker
@@ -202,9 +190,7 @@ const EditSubscription = ({
                   </>
                 ) : (
                   <>
-                    <p>
-                      User will be Inactivated & User won't be able to Login
-                    </p>
+                    <p>User will be Inactivated & User won't be able to Login</p>
                     <FormControlLabel
                       disabled
                       checked
@@ -224,9 +210,7 @@ const EditSubscription = ({
                 Extend Expiry
               </LoadingButton>
             ) : (
-              <LoadingButton
-                onClick={inactiveSubmit}
-                loading={inactivesubmutation.isLoading}>
+              <LoadingButton onClick={inactiveSubmit} loading={inactivesubmutation.isLoading}>
                 Inactive User
               </LoadingButton>
             )}

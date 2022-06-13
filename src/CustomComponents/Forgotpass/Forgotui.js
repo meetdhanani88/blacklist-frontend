@@ -70,17 +70,9 @@ const Forgotui = () => {
   return (
     <>
       <Grid container direction="column" justifyContent="center" spacing={2}>
-        <Grid
-          item
-          xs={12}
-          container
-          alignItems="center"
-          justifyContent="center"
-        >
+        <Grid item xs={12} container alignItems="center" justifyContent="center">
           <Box sx={{ mb: 2 }}>
-            <Typography variant="subtitle1">
-              Enter Email to Sent Reset Password Link
-            </Typography>
+            <Typography variant="subtitle1">Enter Email to Sent Reset Password Link</Typography>
           </Box>
         </Grid>
       </Grid>
@@ -99,34 +91,19 @@ const Forgotui = () => {
           email: "",
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email("Must be a valid email")
-            .max(255)
-            .required("Email is required"),
+          email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
         })}
         onSubmit={async (values) => {
           setmyval(values);
           mutate(values);
-        }}
-      >
-        {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-          touched,
-          values,
-        }) => (
+        }}>
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <FormControl
               fullWidth
               error={Boolean(touched.email && errors.email)}
-              sx={{ ...theme.typography.customInput }}
-            >
-              <InputLabel htmlFor="outlined-adornment-email-login">
-                Email Address
-              </InputLabel>
+              sx={{ ...theme.typography.customInput }}>
+              <InputLabel htmlFor="outlined-adornment-email-login">Email Address</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-email-login"
                 type="email"
@@ -138,27 +115,18 @@ const Forgotui = () => {
                 inputProps={{}}
               />
               {touched.email && errors.email && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-email-login"
-                >
+                <FormHelperText error id="standard-weight-helper-text-email-login">
                   {errors.email}
                 </FormHelperText>
               )}
             </FormControl>
 
-            <Stack
-              direction="row"
-              alignItems="flex-end"
-              justifyContent="end"
-              spacing={1}
-            >
+            <Stack direction="row" alignItems="flex-end" justifyContent="end" spacing={1}>
               <Typography
                 variant="subtitle1"
                 color="secondary"
                 sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => nav("/Login")}
-              >
+                onClick={() => nav("/Login")}>
                 Login?
               </Typography>
             </Stack>
@@ -177,8 +145,7 @@ const Forgotui = () => {
                   type="submit"
                   variant="contained"
                   color="secondary"
-                  loading={isLoading}
-                >
+                  loading={isLoading}>
                   Sent Email
                 </LoadingButton>
               </AnimateButton>

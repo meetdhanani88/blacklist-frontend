@@ -100,13 +100,7 @@ const ProfileSection = () => {
             color="inherit"
           />
         }
-        label={
-          <IconSettings
-            stroke={1.5}
-            size="1.5rem"
-            color={theme.palette.primary.main}
-          />
-        }
+        label={<IconSettings stroke={1.5} size="1.5rem" color={theme.palette.primary.main} />}
         variant="outlined"
         ref={anchorRef}
         aria-controls={open ? "menu-list-grow" : undefined}
@@ -130,8 +124,7 @@ const ProfileSection = () => {
               },
             },
           ],
-        }}
-      >
+        }}>
         {({ TransitionProps }) => (
           <Transitions in={open} {...TransitionProps}>
             <Paper>
@@ -141,8 +134,7 @@ const ProfileSection = () => {
                   elevation={16}
                   content={false}
                   boxShadow
-                  shadow={theme.shadows[16]}
-                >
+                  shadow={theme.shadows[16]}>
                   <List
                     component="nav"
                     sx={{
@@ -157,22 +149,16 @@ const ProfileSection = () => {
                       "& .MuiListItemButton-root": {
                         mt: 0.5,
                       },
-                    }}
-                  >
+                    }}>
                     <ListItemButton
                       sx={{
                         borderRadius: `${customization.borderRadius}px`,
                       }}
-                      onClick={handleLogout}
-                    >
+                      onClick={handleLogout}>
                       <ListItemIcon>
                         <IconLogout stroke={1.5} size="1.3rem" />
                       </ListItemIcon>
-                      <ListItemText
-                        primary={
-                          <Typography variant="body2">Logout</Typography>
-                        }
-                      />
+                      <ListItemText primary={<Typography variant="body2">Logout</Typography>} />
                     </ListItemButton>
                   </List>
                 </MainCard>

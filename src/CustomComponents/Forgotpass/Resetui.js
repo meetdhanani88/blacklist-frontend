@@ -77,17 +77,9 @@ const Resetui = () => {
   return (
     <>
       <Grid container direction="column" justifyContent="center" spacing={2}>
-        <Grid
-          item
-          xs={12}
-          container
-          alignItems="center"
-          justifyContent="center"
-        >
+        <Grid item xs={12} container alignItems="center" justifyContent="center">
           <Box sx={{ mb: 2 }}>
-            <Typography variant="subtitle1">
-              Enter New Password For Reset
-            </Typography>
+            <Typography variant="subtitle1">Enter New Password For Reset</Typography>
           </Box>
         </Grid>
       </Grid>
@@ -115,23 +107,13 @@ const Resetui = () => {
         onSubmit={async (values) => {
           setmyval(values);
           mutate(values);
-        }}
-      >
-        {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-          touched,
-          values,
-        }) => (
+        }}>
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <FormControl
               fullWidth
               error={Boolean(touched.newpassword && errors.newpassword)}
-              sx={{ ...theme.typography.customInput }}
-            >
+              sx={{ ...theme.typography.customInput }}>
               <InputLabel htmlFor="outlined-adornment-password-login">
                 Enter New Password
               </InputLabel>
@@ -147,29 +129,22 @@ const Resetui = () => {
                     <IconButton
                       aria-label="toggle password visibility"
                       edge="end"
-                      size="large"
-                    ></IconButton>
+                      size="large"></IconButton>
                   </InputAdornment>
                 }
                 label="Password"
                 inputProps={{}}
               />
               {touched.newpassword && errors.newpassword && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-password-login"
-                >
+                <FormHelperText error id="standard-weight-helper-text-password-login">
                   {errors.newpassword}
                 </FormHelperText>
               )}
             </FormControl>
             <FormControl
               fullWidth
-              error={Boolean(
-                touched.confirmnewpassword && errors.confirmnewpassword
-              )}
-              sx={{ ...theme.typography.customInput }}
-            >
+              error={Boolean(touched.confirmnewpassword && errors.confirmnewpassword)}
+              sx={{ ...theme.typography.customInput }}>
               <InputLabel htmlFor="outlined-adornment-password-login">
                 Confirm New Password
               </InputLabel>
@@ -185,35 +160,25 @@ const Resetui = () => {
                     <IconButton
                       aria-label="toggle password visibility"
                       edge="end"
-                      size="large"
-                    ></IconButton>
+                      size="large"></IconButton>
                   </InputAdornment>
                 }
                 label="Password"
                 inputProps={{}}
               />
               {touched.confirmnewpassword && errors.confirmnewpassword && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-password-login"
-                >
+                <FormHelperText error id="standard-weight-helper-text-password-login">
                   {errors.confirmnewpassword}
                 </FormHelperText>
               )}
             </FormControl>
 
-            <Stack
-              direction="row"
-              alignItems="flex-end"
-              justifyContent="end"
-              spacing={1}
-            >
+            <Stack direction="row" alignItems="flex-end" justifyContent="end" spacing={1}>
               <Typography
                 variant="subtitle1"
                 color="secondary"
                 sx={{ textDecoration: "none", cursor: "pointer" }}
-                onClick={() => nav("/Login")}
-              >
+                onClick={() => nav("/Login")}>
                 Login?
               </Typography>
             </Stack>
@@ -232,8 +197,7 @@ const Resetui = () => {
                   type="submit"
                   variant="contained"
                   color="secondary"
-                  loading={isLoading}
-                >
+                  loading={isLoading}>
                   Reset Password
                 </LoadingButton>
               </AnimateButton>

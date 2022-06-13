@@ -124,16 +124,9 @@ const FirebaseLogin = ({ setrole }) => {
   return (
     <>
       <Grid container direction="column" justifyContent="center" spacing={2}>
-        <Grid
-          item
-          xs={12}
-          container
-          alignItems="center"
-          justifyContent="center">
+        <Grid item xs={12} container alignItems="center" justifyContent="center">
           <Box sx={{ mb: 2 }}>
-            <Typography variant="subtitle1">
-              Sign in with Email address
-            </Typography>
+            <Typography variant="subtitle1">Sign in with Email address</Typography>
           </Box>
         </Grid>
       </Grid>
@@ -153,25 +146,14 @@ const FirebaseLogin = ({ setrole }) => {
           password: "",
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email("Must be a valid email")
-            .max(255)
-            .required("Email is required"),
+          email: Yup.string().email("Must be a valid email").max(255).required("Email is required"),
           password: Yup.string().max(255).required("Password is required"),
         })}
         onSubmit={async (values) => {
           setmyval(values);
           mutate(values);
         }}>
-        {({
-          errors,
-          handleBlur,
-          handleChange,
-          handleSubmit,
-          isSubmitting,
-          touched,
-          values,
-        }) => (
+        {({ errors, handleBlur, handleChange, handleSubmit, isSubmitting, touched, values }) => (
           <form noValidate onSubmit={handleSubmit}>
             <FormControl
               fullWidth
@@ -191,9 +173,7 @@ const FirebaseLogin = ({ setrole }) => {
                 inputProps={{}}
               />
               {touched.email && errors.email && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-email-login">
+                <FormHelperText error id="standard-weight-helper-text-email-login">
                   {errors.email}
                 </FormHelperText>
               )}
@@ -203,9 +183,7 @@ const FirebaseLogin = ({ setrole }) => {
               fullWidth
               error={Boolean(touched.password && errors.password)}
               sx={{ ...theme.typography.customInput }}>
-              <InputLabel htmlFor="outlined-adornment-password-login">
-                Password
-              </InputLabel>
+              <InputLabel htmlFor="outlined-adornment-password-login">Password</InputLabel>
               <OutlinedInput
                 id="outlined-adornment-password-login"
                 type={showPassword ? "text" : "password"}
@@ -229,18 +207,12 @@ const FirebaseLogin = ({ setrole }) => {
                 inputProps={{}}
               />
               {touched.password && errors.password && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-password-login">
+                <FormHelperText error id="standard-weight-helper-text-password-login">
                   {errors.password}
                 </FormHelperText>
               )}
             </FormControl>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              spacing={1}>
+            <Stack direction="row" alignItems="center" justifyContent="space-between" spacing={1}>
               <Typography
                 variant="subtitle1"
                 color="secondary"

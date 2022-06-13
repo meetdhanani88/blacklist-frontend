@@ -15,18 +15,12 @@ import Toast from "../../../Helper/Toast";
 import { useSelector } from "react-redux";
 import { useLayoutEffect } from "react";
 
-const EditBlacklistedVendor = ({
-  openEdituserpop,
-  handleCloseEdituserpop,
-  listofuser,
-}) => {
+const EditBlacklistedVendor = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
   const [Edituserdata, setEdituserdata] = React.useState({});
   const [errmsg, seterrmsg] = React.useState(false);
   const queryClient = useQueryClient();
   const userlist = useSelector((state) => state.Login.blacklistedvendorlist);
-  const userEditId = useSelector(
-    (state) => state.Login.blacklistedvendorlistId
-  );
+  const userEditId = useSelector((state) => state.Login.blacklistedvendorlistId);
 
   useLayoutEffect(() => {
     const editdata = userlist.filter((item) => item._id === userEditId);
@@ -34,14 +28,11 @@ const EditBlacklistedVendor = ({
   }, [userlist, userEditId]);
 
   async function EditCreateduser() {
-    const res = await axiosInstance.post(
-      `/vendor/updateVendor/${Edituserdata._id}`,
-      {
-        vendorName: values.vendorName,
-        reason: values.reason,
-        address: values.address,
-      }
-    );
+    const res = await axiosInstance.post(`/vendor/updateVendor/${Edituserdata._id}`, {
+      vendorName: values.vendorName,
+      reason: values.reason,
+      address: values.address,
+    });
 
     return res;
   }
@@ -67,30 +58,20 @@ const EditBlacklistedVendor = ({
   const validationSchema = Yup.object({
     vendorName: Yup.string().required("vendorName is required"),
     address: Yup.string().required("address is required"),
-    reason: Yup.string()
-      .min(10, "Minimum Length 10")
-      .required("reason is require"),
+    reason: Yup.string().min(10, "Minimum Length 10").required("reason is require"),
   });
 
-  const {
-    errors,
-    values,
-    handleBlur,
-    handleSubmit,
-    handleChange,
-    touched,
-    isValid,
-    handleReset,
-  } = useFormik({
-    initialValues: {
-      vendorName: Edituserdata?.vendorName,
-      reason: Edituserdata?.reason,
-      address: Edituserdata?.address,
-    },
-    validationSchema,
-    onSubmit: handelEdiuser,
-    enableReinitialize: true,
-  });
+  const { errors, values, handleBlur, handleSubmit, handleChange, touched, isValid, handleReset } =
+    useFormik({
+      initialValues: {
+        vendorName: Edituserdata?.vendorName,
+        reason: Edituserdata?.reason,
+        address: Edituserdata?.address,
+      },
+      validationSchema,
+      onSubmit: handelEdiuser,
+      enableReinitialize: true,
+    });
 
   return (
     <div>
@@ -100,8 +81,7 @@ const EditBlacklistedVendor = ({
         maxWidth="sm"
         scroll="paper"
         aria-labelledby="scroll-dialog-title"
-        aria-describedby="scroll-dialog-description"
-      >
+        aria-describedby="scroll-dialog-description">
         <Box component="form" noValidate onSubmit={handleSubmit}>
           <DialogTitle id="scroll-dialog-title" fontSize={"1rem"}>
             Edit Blacklisted-Vendor
@@ -113,9 +93,7 @@ const EditBlacklistedVendor = ({
                 {errmsg}
               </Alert>
             )}
-            <DialogContentText>
-              Edit Blacklisted-Vendor Details
-            </DialogContentText>
+            <DialogContentText>Edit Blacklisted-Vendor Details</DialogContentText>
 
             <TextField
               error={errors.vendorName && touched.vendorName ? true : false}
@@ -132,11 +110,7 @@ const EditBlacklistedVendor = ({
               onBlur={handleBlur}
             />
             {errors.vendorName && touched.vendorName ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.vendorName}
               </Alert>
             ) : null}
@@ -155,11 +129,7 @@ const EditBlacklistedVendor = ({
               onBlur={handleBlur}
             />
             {errors.reason && touched.reason ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.reason}
               </Alert>
             ) : null}
@@ -179,11 +149,7 @@ const EditBlacklistedVendor = ({
               onBlur={handleBlur}
             />
             {errors.address && touched.address ? (
-              <Alert
-                variant="string"
-                severity="error"
-                sx={{ color: "#f44336" }}
-              >
+              <Alert variant="string" severity="error" sx={{ color: "#f44336" }}>
                 {errors.address}
               </Alert>
             ) : null}
@@ -191,10 +157,7 @@ const EditBlacklistedVendor = ({
 
           <DialogActions>
             <Button onClick={handleCloseEdituserpop}>Cancel</Button>
-            <Button
-              onClick={handelEdiuser}
-              disabled={!isValid || values.vendorName === ""}
-            >
+            <Button onClick={handelEdiuser} disabled={!isValid || values.vendorName === ""}>
               Edit Details
             </Button>
           </DialogActions>

@@ -35,13 +35,10 @@ const Login = ({ setrole, role, path }) => {
     } else if (role === 2 && token && path.slice(0, 5) === "/user") {
       nav(path, { replace: true });
     } else if (role === 1 && token) {
-      console.log("hi1");
       nav("/admin", { replace: true });
-      console.log("hi2");
     } else if (role === 2 && token) {
       nav("/user", { replace: true });
     }
-    console.log(role, token);
   }, [nav, role, path]);
 
   useEffect(() => {

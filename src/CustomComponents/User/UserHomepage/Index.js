@@ -62,8 +62,7 @@ const UserHomepage = () => {
         <Addblacklist
           openpop={openpop}
           handleClosepop={handleClosepop}
-          role={"user"}
-        ></Addblacklist>
+          role={"user"}></Addblacklist>
       )}
       <AppBar position="static">
         <Container maxWidth="xl">
@@ -83,8 +82,7 @@ const UserHomepage = () => {
                 color: "inherit",
                 textDecoration: "none",
                 flexGrow: 1,
-              }}
-            >
+              }}>
               Find Blacklist
             </Typography>
 
@@ -103,8 +101,7 @@ const UserHomepage = () => {
                 letterSpacing: ".03rem",
                 color: "inherit",
                 textDecoration: "none",
-              }}
-            >
+              }}>
               Find Blacklist
             </Typography>
 
@@ -128,14 +125,12 @@ const UserHomepage = () => {
                   horizontal: "right",
                 }}
                 open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
+                onClose={handleCloseUserMenu}>
                 {settings.map((setting, i) => (
                   <MenuItem
                     key={i}
                     onClick={() => handleCloseUserMenu(setting)}
-                    sx={{ color: "#1976d2" }}
-                  >
+                    sx={{ color: "#1976d2" }}>
                     <Typography textAlign="center" fontSize={18}>
                       {setting}
                     </Typography>
@@ -153,16 +148,14 @@ const UserHomepage = () => {
           minHeight: "100vh",
           border: 0,
           boxShadow: "none",
-        }}
-      >
+        }}>
         <Container style={{ marginTop: "40px" }}>
           <Grid container spacing={1} justifyContent="flex-end">
             <Fab
               color="primary"
               aria-label="add"
               variant="extended"
-              onClick={() => setopenpop(true)}
-            >
+              onClick={() => setopenpop(true)}>
               <AddIcon sx={{ mr: 1 }} />
               Request For Blacklist
             </Fab>

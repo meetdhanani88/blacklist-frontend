@@ -56,7 +56,13 @@ const CustomPaginationActionsTable = Loadable(
 // ==============================|| APP ||============================== //
 
 let currentpatharr = [];
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 const App = () => {
   const [Role, setrole] = useState("");
