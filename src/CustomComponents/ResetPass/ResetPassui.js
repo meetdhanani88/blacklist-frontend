@@ -1,12 +1,9 @@
 import { useState } from "react";
-//import { useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
-
-  //Divider,
   FormControl,
   FormHelperText,
   Grid,
@@ -17,7 +14,6 @@ import {
   Stack,
   Typography,
   Alert,
-  //  useMediaQuery
 } from "@mui/material";
 
 // third party
@@ -43,7 +39,7 @@ import { LoadingButton } from "@mui/lab";
 const ResetPassui = ({ location }) => {
   const nav = useNavigate();
   const queryClient = useQueryClient();
-  //const dispatch = useDispatch();
+
   const [suceessmsg, setsuceessmsg] = useState(false);
   const [errmsg, seterrmsg] = useState(false);
 
@@ -95,16 +91,19 @@ const ResetPassui = ({ location }) => {
           </Box>
         </Grid>
       </Grid>
+
       {errmsg && !suceessmsg && (
         <Alert severity="error" variant="filled" sx={{ mt: 2, mb: 2 }}>
           {errmsg}
         </Alert>
       )}
+
       {suceessmsg && !errmsg && (
         <Alert severity="success" variant="filled" sx={{ mt: 2, mb: 2 }}>
           {suceessmsg}
         </Alert>
       )}
+
       <Formik
         initialValues={{
           email: location?.state?.email || "",

@@ -53,7 +53,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
     },
   });
 
-  function handelEdiuser() {
+  function handelEdituser() {
     mutation.mutate();
   }
 
@@ -73,7 +73,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
         mobileNo: Edituserdata.mobileNo,
       },
       validationSchema,
-      onSubmit: handelEdiuser,
+      onSubmit: handelEdituser,
       enableReinitialize: true,
     });
 
@@ -182,7 +182,7 @@ const Edituser = ({ openEdituserpop, handleCloseEdituserpop, listofuser }) => {
 
           <DialogActions>
             <Button onClick={handleCloseEdituserpop}>Cancel</Button>
-            <Button onClick={handelEdiuser} disabled={!isValid || values.firstname === ""}>
+            <Button onClick={handelEdituser} disabled={!isValid || values.firstname === ""}>
               Edit User
             </Button>
           </DialogActions>

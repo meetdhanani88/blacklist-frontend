@@ -1,5 +1,4 @@
 import { useState } from "react";
-//import { useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
@@ -15,7 +14,6 @@ import {
   Stack,
   Typography,
   Alert,
-  //  useMediaQuery
 } from "@mui/material";
 
 // third party

@@ -21,7 +21,6 @@ const Resetpass = () => {
   const matchDownSM = useMediaQuery(theme.breakpoints.down("md"));
   const [loading, setloading] = useState(true);
   const location = useLocation();
-  console.log(location);
 
   useEffect(() => {
     setloading(false);

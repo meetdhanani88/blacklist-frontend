@@ -145,7 +145,6 @@ function CustomPaginationActionsTable() {
   };
 
   const Editsubrfun = (btn) => {
-    //dispatch(LoginAction.GetuserEditId(btn.id))
     dispatch({ type: GETUSEREDITID, payload: btn.id });
     handleClose();
     setopenEditsubuserpop(true);
@@ -216,7 +215,7 @@ function CustomPaginationActionsTable() {
         </Grid>
 
         <Grid item xs={12}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{ boxShadow: 1 }}>
             <Table sx={{ minWidth: 1000 }} aria-label="custom pagination table">
               <TableHead>
                 <TableRow>

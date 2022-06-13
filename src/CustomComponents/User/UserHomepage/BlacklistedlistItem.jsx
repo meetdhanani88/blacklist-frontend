@@ -29,7 +29,7 @@ const classes = {
 
 const BlacklistedlistItem = ({ listitem, isLoading }) => {
   const navigate = useNavigate();
-  console.log("listitem", listitem);
+
   return (
     <Card
       sx={classes.root}

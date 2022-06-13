@@ -122,8 +122,6 @@ function ManageBlacklistVendor() {
 
   const deletemutation = useMutation((id) => deleteUser(id), {
     onSuccess: (data) => {
-      // Toast({ message: "Deleted User Successfully" })
-
       Toast({ message: data.data.message });
 
       getblacklistedVendorquery.refetch();
@@ -134,8 +132,6 @@ function ManageBlacklistVendor() {
         message: data?.response?.data?.message || "Something Wrong",
         type: "error",
       });
-
-      //Toast({ message: "Something wrong", type: "error" })
     },
     onSettled: () => {
       queryClient.invalidateQueries("BlacklistedVendordeleted");
@@ -165,7 +161,6 @@ function ManageBlacklistVendor() {
   // }]
 
   useEffect(() => {
-    // dispatch(LoginAction.setblacklistedvendorlist(rows))
     dispatch({ type: SETBLACKLISTEDVENDORLIST, payload: rows });
   }, [rows, dispatch]);
 
@@ -176,7 +171,6 @@ function ManageBlacklistVendor() {
   };
 
   const Editsubrfun = (btn) => {
-    //  dispatch(LoginAction.setblacklistedvendorEditId(btn.id))
     dispatch({ type: SETBLACKLISTEDVENDOREDITID, payload: btn.id });
     handleClose();
     setopenEditsubpop(true);
@@ -267,7 +261,7 @@ function ManageBlacklistVendor() {
         </Grid>
 
         <Grid item xs={12}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{ boxShadow: 1 }}>
             <Table sx={{ minWidth: 1000 }} aria-label="custom pagination table">
               <TableHead>
                 <TableRow>

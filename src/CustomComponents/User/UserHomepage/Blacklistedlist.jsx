@@ -18,7 +18,7 @@ const getAllBlacklist = async () => {
 const Blacklistedlist = () => {
   const { data, isLoading } = useQuery("getcoutry", getAllBlacklist);
   const BlacklistedList = data ? [...data] : [];
-  // console.log(countryList);
+
   const category = ["Blacklisted", "Highly Cautious", "Cautious"];
   const dispatch = useDispatch();
 

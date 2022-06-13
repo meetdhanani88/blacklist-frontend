@@ -1,12 +1,9 @@
 import { useState } from "react";
-//import { useSelector } from 'react-redux';
 
 // material-ui
 import { useTheme } from "@mui/material/styles";
 import {
   Box,
-
-  //Divider,
   FormControl,
   FormHelperText,
   Grid,
@@ -17,7 +14,6 @@ import {
   Stack,
   Typography,
   Alert,
-  //  useMediaQuery
 } from "@mui/material";
 
 // third party
@@ -38,14 +34,11 @@ import { LOGIN } from "store/actions";
 import Toast from "Helper/Toast";
 import { LoadingButton } from "@mui/lab";
 
-//import Google from 'assets/images/icons/social-google.svg';
-
 // ============================|| FIREBASE - LOGIN ||============================ //
 
 const FirebaseLogin = ({ setrole }) => {
   const nav = useNavigate();
   const queryClient = useQueryClient();
-  //const dispatch = useDispatch();
   const [suceessmsg, setsuceessmsg] = useState(false);
   const [errmsg, seterrmsg] = useState(false);
   const [load, setload] = useState(true);

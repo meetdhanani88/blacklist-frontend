@@ -182,7 +182,7 @@ function ManageBlacklistReq() {
         </Grid>
 
         <Grid item xs={12}>
-          <TableContainer component={Paper}>
+          <TableContainer component={Paper} sx={{ boxShadow: 1 }}>
             <Table sx={{ minWidth: 1000 }} aria-label="custom pagination table">
               <TableHead>
                 <TableRow>

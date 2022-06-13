@@ -28,7 +28,6 @@ const Rejectreq = ({ openpop, handleClosepop, Listofuser, rejectVendorId }) => {
   const mutation = useMutation(Rejectvendor, {
     onSuccess: (data) => {
       Listofuser.refetch();
-
       handleReset();
       handleClosepop();
       Toast({ message: "Request Rejected" });
