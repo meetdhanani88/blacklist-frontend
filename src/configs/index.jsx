@@ -1,7 +1,8 @@
 import axios from "axios";
-const baseURL = "http://192.168.100.29:7600/api";
+//const baseURL = "http://192.168.100.29:7600/api";
+const baseURL = "http://192.168.100.223:7600/api";
 const token = localStorage.getItem("token");
-export const imgurl = "http://192.168.100.29:7600";
+export const imgurl = "http://192.168.100.223:7600";
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
