@@ -238,8 +238,19 @@ function CustomPaginationActionsTable() {
                     let date = row?.expiryDate ? new Date(row.expiryDate) : null;
 
                     return (
-                      <TableRow key={row?._id}>
+                      <TableRow
+                        key={row?._id}
+                        sx={{
+                          "&:hover": {
+                            background: "#6d676718",
+                            "&>*": {
+                              fontWeight: 800,
+                              color: "#00000096",
+                            },
+                          },
+                        }}>
                         <TableCell
+                          className="child"
                           style={{ width: 50 }}
                           sx={{ "&.MuiTableCell-root": { fontWeight: 700 } }}>
                           {row.firstName}

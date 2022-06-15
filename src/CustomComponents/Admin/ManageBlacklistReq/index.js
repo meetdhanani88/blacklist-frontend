@@ -37,6 +37,7 @@ const StyledTableCell = styled(TableCell)(({ theme }) => ({
     backgroundColor: "#2986CE",
     color: theme.palette.common.white,
   },
+
   [`&.${tableCellClasses.body}`]: {
     fontSize: 14,
   },
@@ -206,7 +207,17 @@ function ManageBlacklistReq() {
                     let date = row?.createdAt ? new Date(row.createdAt) : null;
 
                     return (
-                      <TableRow key={i}>
+                      <TableRow
+                        key={i}
+                        sx={{
+                          "&:hover": {
+                            background: "#6d676718",
+                            "&>*": {
+                              fontWeight: 800,
+                              color: "#00000096",
+                            },
+                          },
+                        }}>
                         <TableCell
                           style={{ width: 150 }}
                           sx={{
