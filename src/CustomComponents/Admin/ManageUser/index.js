@@ -39,6 +39,7 @@ import EditSubscription from "./EditSubscription";
 import { gridSpacing } from "store/constant";
 import { GETUSEREDITID, USERLIST } from "store/actions";
 import Toast from "Helper/Toast";
+import { useNavigate } from "react-router";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -114,7 +115,18 @@ function CustomPaginationActionsTable() {
   const [openpop, setOpenpop] = React.useState(false);
   const [openEdituserpop, setopenEdituserpop] = React.useState(false);
   const [openEditsubuserpop, setopenEditsubuserpop] = React.useState(false);
-  const query = useQuery("getuserlist", getusertList);
+  const nav = useNavigate();
+
+  const query = useQuery("getuserlist", getusertList, {
+    onError: (data) => {
+      if (data?.response?.data?.name === "TokenExpiredError") {
+        Toast({ message: "Token Expire, Login Again" });
+        localStorage.removeItem("token");
+        nav("/login");
+      }
+    },
+  });
+
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
@@ -159,7 +171,6 @@ function CustomPaginationActionsTable() {
   const handleClickOpenEdituserpop = () => {
     setopenEdituserpop(true);
   };
-
   const handleClosepop = () => {
     setOpenpop(false);
   };
