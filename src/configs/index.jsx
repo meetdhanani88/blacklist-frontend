@@ -1,8 +1,8 @@
 import axios from "axios";
 //const baseURL = "http://192.168.100.29:7600/api";
-const baseURL = "http://192.168.100.223:7600/api";
+const baseURL = "https://vendorblacklist.herokuapp.com/api";
 const token = localStorage.getItem("token");
-export const imgurl = "http://192.168.100.223:7600";
+export const imgurl = "https://vendorblacklist.herokuapp.com";
 
 const axiosInstance = axios.create({
   baseURL: baseURL,
